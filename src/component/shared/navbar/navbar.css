@@ -1,0 +1,33 @@
+
+.main-nav{
+    color:white;
+    background-color: rgb(27 29 30 / 53%);
+    width: 100%;
+    display: flex;
+  }
+  /* .links{
+  
+    cursor: pointer;
+  } */
+  
+  .head{
+    color: white;
+  }
+
+  .links ul {
+      list-style: none;
+      display: flex;
+      justify-content: space-evenly;
+
+  }
+  .links ul li{
+      cursor: pointer;
+      
+  } 
+
+  .links a,
+  .head
+   a {
+    color: #ffffff;
+    text-decoration: none;
+}

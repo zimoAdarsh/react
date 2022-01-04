@@ -1,0 +1,12 @@
+.event-form{
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    background: #ededed;
+    border-radius: 10px;
+}
+
+.event_head{
+    border: 1px solid lightgray;
+    border-radius: 5px;
+}
