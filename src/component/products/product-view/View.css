@@ -1,0 +1,62 @@
+.inside_view {
+  margin-top: 50px;
+  box-shadow: 0 0px 2px #97a7c37a, 0 2px 3px 0 #97a7c3ab;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.detail-side {
+  box-shadow: 0 0px 2px #97a7c37a, 0 2px 3px 0 #97a7c3ab;
+  padding: 20px;
+  border-radius: 5px;
+  height: 500px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.color_red {
+  color: red !important;
+  font-weight: 600 !important ;
+}
+
+.fav button {
+    padding: 6px;
+    border-radius: 50%;
+    box-shadow: 0 0px 2px #97a7c37a, 0 2px 3px 0 #97a7c3ab;
+    cursor: pointer;
+    border: none;
+    background: whitesmoke;
+  }
+.product_view ul {
+  list-style: none;
+}
+.font_class {
+  font-size: 15px;
+}
+
+.btn_cus_contact {
+  border-radius: 19px;
+  padding: 5px 15px;
+  text-transform: capitalize;
+  background: #005aa4;
+  color: #fff;
+  box-shadow: none;
+  outline: none;
+  border: none;
+}
+
+.main_detail {
+    padding-bottom: 50px;
+    border-bottom: 1px solid #b5b5b5;
+}
+.other_details ul li strong{
+    display: inline-block;
+    width: 50%;
+}
+
+.cus_input {
+    outline: none;
+    border: 1px solid lightgray;
+    border-radius: 9px;
+    height: 40px;
+    width: 40%;
+}

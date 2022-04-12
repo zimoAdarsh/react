@@ -7,7 +7,6 @@ import apiService from '../../environment'
 function Home() {
     const [postsData , setPostsData] = useState([])
     const [ commentData , setCommentData] = useState('')
-   
     useEffect(() => {
         const getPostList = async () => {
             let data = {
@@ -44,6 +43,9 @@ function Home() {
         const addComment = await axios.post(apiService.addCommnet,{userId: "61c4365d1fc8437939cb177b",postId:id,comment:comment})
         console.log('addComment',addComment)
     }
+
+
+
     return (
         <div className='home'>
             <Navbar></Navbar>

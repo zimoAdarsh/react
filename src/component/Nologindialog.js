@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 
 
-const DialogBox = (props) => {
+const LoginDialogBox = (props) => {
     console.log('props', props)
     const [open, setOpen] = useState(false);
 
@@ -52,4 +52,4 @@ const DialogBox = (props) => {
 
 }
 
-export default DialogBox
+export default LoginDialogBox

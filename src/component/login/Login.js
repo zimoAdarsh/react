@@ -26,10 +26,10 @@ function Login() {
             .required('please enter password')
         }),
          onSubmit:async(values)=>{
-            setBtn(true)
+            setBtn(false)
             const loginData =await axios.post(apiService.login,values)
             if(loginData.data.code===200){
-                localStorage.setItem('token',loginData.data.data.token)
+                // localStorage.setItem('token',loginData.data.data.token)
                 localStorage.setItem('userInfo',JSON.stringify(loginData.data.data.userInfo))
                 setBtn(false)
                 toast.success(loginData.data.message)
@@ -48,7 +48,7 @@ function Login() {
         <div className='login-out'>
             <Navbar />
             <div className='container text-center'>
-                <div className='login-form row'>
+                <div className='login-form row demo'>
                     <form onSubmit={formik.handleSubmit} >
                         <div className='login_head mt-2 mb-4 col-sm-12'>
                             <h2>Login</h2>

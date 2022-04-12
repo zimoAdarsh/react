@@ -10,6 +10,7 @@ const Post = ({ data, comment, index, like, addComment }) => {
         commenting: ''
     })
     const [classIn, setClass] = useState(false)
+    const content = 'Are you sure you want to delete this post'
 
     function handleState(name, value) {
         setCommentState({
@@ -33,7 +34,7 @@ const Post = ({ data, comment, index, like, addComment }) => {
         <div className='post'>
             <div className='row post_header'>
                 <div className='col-sm-3'>
-                    <img className='avatar' src={apiService.imagePath + data.userData?.image}></img>
+                    {/* <img className='avatar' src={apiService.imagePath + data.userData?.image}></img> */}
                 </div>
                 <div className='col-sm-6 '>
                     <h6>{data.personName}</h6>
@@ -43,7 +44,7 @@ const Post = ({ data, comment, index, like, addComment }) => {
                     <i className="fa fa-ellipsis-v" onClick={() => toggleClass()}></i>
                     <div className={classIn ? 'list' : 'no_list'}>
                         <ul className='cus_menu'>
-                            <li><DialogBox function={clicked}></DialogBox> </li>
+                            <li><DialogBox function={clicked} content={content}></DialogBox> </li>
                         </ul>
                     </div>
                 </div>

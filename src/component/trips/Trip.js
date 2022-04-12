@@ -7,27 +7,21 @@ import PaginatioN from '../pagination';
 import Constant from '../../constant';
 const Trip = () => {
     const [tripData, setTripData] = useState(null)
-    const [ page , setPgae] =useState(1)
+    const [ page , setPage] =useState(1)
 
     useEffect(() => {
         Tripsdata(1)
-    }, [])
+    }, [page])
 
 
-    const Tripsdata = async (page) => {
+    const Tripsdata =  (page) => {
 
-        console.log('here is your page', page)
-        await axios.post(apiService.tripData, { createdById: "61cb0b44f34ca5e1e447fe9b", runningStatus: "UPCOMING", count: Constant.itemsPerPage, page: page }).then((res) => {
-            console.log('res==>>', res)
+         axios.post(apiService.tripData, { createdById: "61cb0b44f34ca5e1e447fe9b", runningStatus: "UPCOMING", count: Constant.itemsPerPage, page: page }).then((res) => {
             if (res.data.code === 200) {
                 setTripData(res.data)
 
             }
         })
-    }
-
-    const pagePage=()=>{
-        console.log('here is your page',page)
     }
 
     return (
@@ -79,7 +73,7 @@ const Trip = () => {
                     )}
                     <div className='row'>
                         <div className='col-sm-12 text-center cus_pagi'>
-                        <PaginatioN count={tripData?.totalCount} function={ Tripsdata }></PaginatioN>
+                        <PaginatioN count={tripData?.totalCount} page ={page}  setPage={ setPage }></PaginatioN>
                         </div>
                     </div>
                 </div>

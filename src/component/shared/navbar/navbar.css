@@ -1,9 +1,13 @@
 
 .main-nav{
-    color:white;
-    background-color: rgb(27 29 30 / 53%);
-    width: 100%;
-    display: flex;
+  color: white;
+  background-color: rgb(189 188 188);
+  width: 100%;
+  display: flex;
+  position: sticky;
+  top: 0;
+  height: 80px;
+  z-index: 9;
   }
   /* .links{
   

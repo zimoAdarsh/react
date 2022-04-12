@@ -1,0 +1,52 @@
+.outter {
+  margin: 50px 0px;
+}
+
+.filter_list {
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0px 2px #97a7c37a, 0 2px 3px 0 #97a7c3ab;
+  width: 400px;
+  margin: 0px 20px;
+}
+
+.pro_img {
+  border: 1px solid #bdbcbc;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.product {
+    box-shadow: 0 0px 2px #97a7c37a, 0 2px 3px 0 #97a7c3ab;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 0px 10px;
+  height: 150px;
+}
+
+.key_point {
+  list-style: none;
+  /* display: flex; */
+}
+.key_point li {
+  margin: 2px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  padding: 0px 6px;
+  font-size: 13px;
+  display: inline-block;
+}
+
+.fav button {
+  padding: 6px;
+  border-radius: 50%;
+  box-shadow: 0 0px 2px #97a7c37a, 0 2px 3px 0 #97a7c3ab;
+  cursor: pointer;
+  border: none;
+  background: whitesmoke;
+}
+
+.color_red {
+    color:red !important;
+    font-weight: 600 !important ;
+}
