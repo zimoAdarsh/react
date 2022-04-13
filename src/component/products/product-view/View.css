@@ -60,3 +60,10 @@
     height: 40px;
     width: 40%;
 }
+
+.see_more {
+    border: 1px solid #ada9a9;
+    padding: 3px 10px;
+    border-radius: 10px;
+    cursor:  pointer ;
+}

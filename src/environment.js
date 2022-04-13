@@ -5,11 +5,11 @@ const baseUrl = 'https://mytruck.one:1337/api/v1'
 const apiService = {
     timeZone :baseUrl+'/timezone/list' ,
     addEvent : baseUrl+'/event/createEvent',
-    posts : 'http://192.168.1.129:1399/api/mobile/post/homePagePostList',
-    imagePath : 'http://192.168.1.129:1399/uploads/enduser/',
-    postComments: 'http://192.168.1.129:1399/api/mobile/comment/list',
-    likePosts: 'http://192.168.1.129:1399/api/mobile/like/add',
-    addCommnet : 'http://192.168.1.129:1399/api/mobile/comment/add',
+    posts : 'https://mytruck.one:1337/api/mobile/post/homePagePostList',
+    imagePath : 'https://mytruck.one:1337/uploads/enduser/',
+    postComments: 'https://mytruck.one:1337/api/mobile/comment/list',
+    likePosts: 'https://mytruck.one:1337/api/mobile/like/add',
+    addCommnet : 'https://mytruck.one:1337/api/mobile/comment/add',
     login :  baseUrl+'/user/login',
     tripData : baseUrl+'/trip/list',
     subCategoryList : baseUrl+'/category/subCategoryList',
@@ -22,7 +22,8 @@ const apiService = {
     removeWishList : baseUrl+'/wishlist/removeWishlist',
     productDetail : baseUrl+'/product/details',
     addQuestion : baseUrl+'/review/addQuestions',
-    questionList : baseUrl+'/review/questionAnswerlist'
+    questionList : baseUrl+'/review/questionAnswerlist',
+    reCommentList :  "https://mytruck.one:1337/api/mobile/comment/list"
 
     
 }

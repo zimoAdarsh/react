@@ -14,12 +14,13 @@ import { UserContext  } from './Context';
 import Post from './component/post/post'
 import Navbar  from './component/shared/navbar/navbar';
 import ProductView from './component/products/product-view/view'
+import Test from './component/test_folder/test';
 function App() {
   const [ user , setUser ] = useState({})
 
   useEffect(()=>{
     let userData =JSON.parse( localStorage.getItem('userInfo') ) 
-    setUser( userData || {});
+    setUser( userData ?? {});
   },[])
   return (
     <div className="App">
@@ -33,9 +34,9 @@ function App() {
           <Route path='/trip' element={<Trip />}>  </Route>
           <Route path='/category' element={<ProductCategory />} ></Route>
           <Route path='/category/products/:id' element={<Product />} ></Route>
-          <Route path='nav' element={ <Navbar/> }> </Route>
           <Route path='/product/view/:id' element={ <ProductView/> }></Route>
-
+          <Route path='nav' element={ <Navbar/> }> </Route>
+          <Route path='test' element={ <Test/> }> </Route>
 
         </Routes>
       {/* </UserContext.Provider> */}

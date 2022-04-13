@@ -21,6 +21,8 @@ import { useParams } from "react-router";
 import ListItemText from '@mui/material/ListItemText';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
 
 const Product = () => {
     const [subCategory, setSubCategory] = useState('');
@@ -36,7 +38,7 @@ const Product = () => {
     const { id } = useParams()
     const [brand, setBrand] = useState([]);
     const [productList, setProductList] = useState([])
-    const [ dis , setDis ] = useState(false)
+    const [dis, setDis] = useState(false)
     const handlePrice = (event, newValue) => {
         console.log(newValue)
         setPriceValue(newValue);
@@ -119,13 +121,15 @@ const Product = () => {
             axios.post(apiService.removeWishList, data).then((res) => {
                 if (res['data'].code === 200) {
                     productList[i].iswishList = !wish
-
+                    toast.success(res['data'].message)
                     setDis(false)
                     setProductList([...productList])
-                }else{
+                } else {
+                    toast.success(res['data'].message)
+
                     setDis(false)
                 }
-            },()=>{
+            }, () => {
                 setDis(false)
             })
         } else {
@@ -140,10 +144,14 @@ const Product = () => {
 
                     setProductList([...productList])
                     setDis(false)
-                }else{
+                    toast.success(res['data'].message)
+
+                } else {
+                    toast.success(res['data'].message)
+
                     setDis(false)
                 }
-            },()=>{
+            }, () => {
                 setDis(false)
             })
         }
@@ -365,11 +373,11 @@ const Product = () => {
                 </div>
                 <div className='product-list col-sm-9 ; row'>
                     {productList.map((product, i) =>
-                        <div className="col-sm-6 mb-3 mt-3" key={i}>
+                        <div className="col-sm-6 mb-3 mt-3 m-0 p-0" key={i}>
                             <div className="product row mr-1 ml-1">
                                 <div className='col-sm-3'>
                                     <Link to={'/product/view/' + product._id} >
-                                        <img className='pro_img w-100' src={`${apiService.productImage}${product.images[0].name}`} />
+                                        <img className='pro_img w-100' src={product?.images.length ? `${apiService.productImage}${product?.images[0].name}` : '/asssets/no-product-img.jpg'} />
                                     </Link>
                                 </div>
                                 <div className="col-sm-7 pro_div">
@@ -385,7 +393,7 @@ const Product = () => {
                                     </ul>
                                 </div>
                                 <div className='fav col-sm-2'  >
-                                    <button disabled={ dis } onClick={() => addWishList(product._id, i, product.iswishList)} className={product.iswishList ? 'far fa-heart text-danger color_red' : 'far fa-heart '}>
+                                    <button disabled={dis} onClick={() => addWishList(product._id, i, product.iswishList)} className={product.iswishList ? 'far fa-heart text-danger color_red' : 'text-danger far fa-heart '}>
                                     </button>
                                 </div>
                             </div>

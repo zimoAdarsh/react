@@ -4,44 +4,92 @@ import Navbar from "../shared/navbar/navbar";
 import './home.css'
 import Post from "../post/post";
 import apiService from '../../environment'
+import { toast } from "react-toastify";
 function Home() {
-    const [postsData , setPostsData] = useState([])
-    const [ commentData , setCommentData] = useState('')
+    const [postsData, setPostsData] = useState([])
+    const [ stop , setStop ] = useState(true)
     useEffect(() => {
-        const getPostList = async () => {
+        const getPostList = async () => { 
             let data = {
                 count: 10,
                 page: 1,
-                userId: "61a84b567410aec83e4266df"
+                userId: "6253f8b195425f41cda44fd4"
             }
-            const postList = await axios.post(apiService.posts,data)
+            const postList = await axios.post(apiService.posts, data)
             setPostsData(postList.data.data)
         }
 
         getPostList()
     }, [])
 
-    const commentList = async (Id ,index,page,count) => {        
-        if(postsData[index].totalComment !==  postsData[index].comments.length){
-            const paga = page === 1? page :paga +1
-        const comments = await axios.post(apiService.postComments, { postId: Id ,page:paga,count:count})
-        setCommentData(comments.data)
-        console.log("comments.data.data",postsData[index].totalComment, postsData[index].comments.length)
-        // console.log('postsData[index].comments.length', commentData)
-        postsData[index].comments.push(...comments.data.data)
-        setPostsData([...postsData])
+    const commentList = async (Id, index, page, count) => {
+        if (postsData[index].totalComment > postsData[index].comments.length && stop) {
+            setStop(false)
+            const comments = await axios.post(apiService.postComments, { postId: Id, page: page, count: count, userId: "6253f8b195425f41cda44fd4" })
+            if (comments.data.code === 200) {
+                postsData[index].commentPage++
+                postsData[index].comments.push(...comments.data.data)
+                setPostsData([...postsData])
+                setStop(true)
+            }else{
+                toast.error('error')
+                setStop(true)
+            }
+           
+
         }
     }
 
-    const likePost= async(postId,active,index)=>{
-        const likeData = await axios.post( apiService.likePosts,{userId: "61a84b567410aec83e4266df",postId:postId,isActive:!active,liked:true})
-        console.log('postsData[index]',likeData.data.data)
-        postsData[index] = {...likeData.data.data}
+    const likePost = async (postId, active, index) => {
+        const likeData = await axios.post(apiService.likePosts, { userId: "6253f8b195425f41cda44fd4", postId: postId, isActive: active, liked: true })
+        postsData[index].isLiked = likeData['data'].data.isLiked
         setPostsData([...postsData])
     }
-    const addComment = async(comment , id)=>{
-        const addComment = await axios.post(apiService.addCommnet,{userId: "61c4365d1fc8437939cb177b",postId:id,comment:comment})
-        console.log('addComment',addComment)
+
+    const addComment = async (postId, cmnt, index) => {
+        let data = {
+            comment: cmnt,
+            postId: postId,
+            userId: "6253f8b195425f41cda44fd4",
+            userImage: "a802b7c4-0dbf-4a48-b7b2-8f0ace6b50d6-1649675168171_caucasian-trucker-driver-in-front-of-his-retro-sem-2021-08-29-11-42-50-utc.jpeg",
+            userName: "Global Solutions",
+        }
+        const addComment = await axios.post(apiService.addCommnet, data)
+        if (addComment['data'].code === 200) {
+            let push = {
+                comment: cmnt,
+                image: "a802b7c4-0dbf-4a48-b7b2-8f0ace6b50d6-1649675168171_caucasian-trucker-driver-in-front-of-his-retro-sem-2021-08-29-11-42-50-utc.jpeg",
+                personName: "Global Solutions",
+                userId: "6253f8b195425f41cda44fd4",
+                _id: addComment['data'].data._id,
+                isEdited: false,
+                isMyComment: true,
+                reCommentArr: [],
+                totalReComment: 0
+            }
+            postsData[index].totalCommentWithReComment++
+            postsData[index].comments.push(push)
+            setPostsData([...postsData])
+            cmnt = null
+        }
+        console.log('addComment', addComment)
+    }
+
+    const commentReplyList = (postI, i, cmntId, postId, page) => {
+        let data = {
+            commentId: cmntId,
+            count: 50,
+            page: page,
+            postId: postId,
+            userId: "6253f8b195425f41cda44fd4",
+        }
+
+        axios.post(apiService.reCommentList, data).then((res) => {
+            console.log('recomment==>', res)
+            postsData[postI].comments[i].page++
+            postsData[postI].comments[i].reCommentArr.push(...res.data.data)
+            setPostsData([...postsData])
+        })
     }
 
 
@@ -54,10 +102,15 @@ function Home() {
                     {/* <h5>Post List</h5> */}
                 </div>
                 <div className='post_list'>
-                {postsData.map( (post,index )=><Post data={post} comment={commentList} index={index} like={likePost} postComment ={addComment} />)
-                
-                }
-                    
+                    {postsData.map((post, index) => <Post data={post}
+                        comment={commentList}
+                        index={index}
+                        like={likePost}
+                        postComment={addComment}
+                        reCommentList={commentReplyList} />)
+
+                    }
+
                 </div>
             </div>
         </div>

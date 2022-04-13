@@ -9,7 +9,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-
+import { toast } from "react-toastify";
 
 
 function TabPanel(props) {
@@ -41,6 +41,7 @@ const ProductView = () => {
     const [productData, setProductData] = useState({})
     const [value, setValue] = useState(0)
     const [quesPage, setQuesPage] = useState(1)
+    const [ totalCount , setTotalCount ] = useState(5)
     const [quesCount, setQuesCount] = useState(0)
     const [questionList, setQuestionList] = useState([])
     const [dis, setDis] = useState(false)
@@ -61,9 +62,11 @@ const ProductView = () => {
         }
         axios.post(apiService.productDetail, data).then((res) => {
             if (res.data.code === 200) {
+                
                 setProductData(res.data.data)
+                window.scrollTo({top: 0, behavior: 'smooth'});
             }
-            console.log(res)
+
         })
     }
     const addWishList = (id, wish) => {
@@ -76,10 +79,11 @@ const ProductView = () => {
             axios.post(apiService.removeWishList, data).then((res) => {
                 if (res['data'].code === 200) {
                     productData.iswishList = !wish
-
+                    toast.success( res['data'].message )
                     setProductData({ ...productData })
                     setDis(false)
                 } else {
+                    toast.success( res['data'].message )
                     setDis(false)
                 }
             }, () => { setDis(false) })
@@ -94,16 +98,20 @@ const ProductView = () => {
                     productData.iswishList = !wish
                     setDis(false)
                     setProductData({ ...productData })
+                    toast.success( res['data'].message )
                 } else {
+                    toast.success( res['data'].message )
                     setDis(false)
                 }
-            },()=>{ setDis(false) })
+            }, () => { setDis(false) })
         }
     }
 
     const questionsList = (p) => {
+        console.log('p==>>',p)
+
         let data = {
-            count: 5,
+            count: totalCount,
             page: p,
             productId: productId.id,
             sellerId: "6253b0a343ee7f184918ad83",
@@ -111,16 +119,22 @@ const ProductView = () => {
         axios.post(apiService.questionList, data).then((res) => {
             if (res['data'].code === 200) {
                 setQuesCount(res['data'].totalCount)
-                setQuestionList([...res['data'].data])
+                setQuestionList([...questionList, ...res['data'].data])
             }
             console.log('res==>', res)
         })
     }
 
     const pageIcre = () => {
-        setQuesPage(quesPage + 1)
-
+        setQuesPage( ()=>  quesPage+1 )
         questionsList(quesPage)
+
+    }
+    const pagedre = () =>{
+        let data = questionList.splice(0 ,5)
+
+        setQuestionList([...data])
+        setQuesPage(1)
 
     }
 
@@ -161,7 +175,7 @@ const ProductView = () => {
                                 <h5 className='text-capitalize'>{productData.productName}</h5>
                             </div>
                             <div className='fav col-sm-2'  >
-                                <button disabled={dis} onClick={() => addWishList(productData._id, productData.iswishList)} className={productData.iswishList ? 'far fa-heart text-danger color_red' : 'far fa-heart '}>
+                                <button disabled={dis} onClick={() => addWishList(productData._id, productData.iswishList)} className={productData.iswishList ? 'far fa-heart text-danger color_red' : 'far fa-heart text-danger'}>
 
                                 </button>
                             </div>
@@ -196,47 +210,47 @@ const ProductView = () => {
 
                             <ul className='p-0' >
                                 <li>
-                                    <div class='mt-2'><strong>Sub Category :</strong> {productData.subCategory ? productData.subCategory : '-'} </div>
+                                    <div className='mt-2'><strong>Sub Category :</strong> {productData.subCategory ? productData.subCategory : '-'} </div>
                                 </li>
                                 <li>
-                                    <div class='mt-2'><strong>Product Type :</strong> {productData.productType ? productData.productType : '-'}</div>
+                                    <div className='mt-2'><strong>Product Type :</strong> {productData.productType ? productData.productType : '-'}</div>
                                 </li>
                                 <li>
-                                    <div class='mt-2'><strong>Brakes :</strong> {productData.breaks ? productData.breaks : '-'}</div>
+                                    <div className='mt-2'><strong>Brakes :</strong> {productData.breaks ? productData.breaks : '-'}</div>
                                 </li>
                                 <li>
-                                    <div class='mt-2'><strong>Engine Make  :</strong>  {productData.engineBrand ? productData.engineBrand : '-'}</div>
+                                    <div className='mt-2'><strong>Engine Make  :</strong>  {productData.engineBrand ? productData.engineBrand : '-'}</div>
                                 </li>
                                 <li>
-                                    <div class='mt-2'><strong>Engine Displacement :</strong> {productData.engineDisplacement ? productData.engineDisplacement : '-'}</div>
+                                    <div className='mt-2'><strong>Engine Displacement :</strong> {productData.engineDisplacement ? productData.engineDisplacement : '-'}</div>
                                 </li>
                                 <li>
-                                    <div class='mt-2'><strong>Engine Power Output  :</strong>{productData.enginePoweroutput ? productData.enginePoweroutput : '-'} </div>
+                                    <div className='mt-2'><strong>Engine Power Output  :</strong>{productData.enginePoweroutput ? productData.enginePoweroutput : '-'} </div>
                                 </li>
                                 <li>
-                                    <div class='mt-2'><strong>Fuel Capacity :</strong> {productData.fuelCapacity ? productData.fuelCapacity : '-'} </div>
+                                    <div className='mt-2'><strong>Fuel Capacity :</strong> {productData.fuelCapacity ? productData.fuelCapacity : '-'} </div>
                                 </li>
                                 <li>
-                                    <div class='mt-2'><strong>Fuel Type :</strong>{productData.fuelType ? productData.fuelType : '-'} </div>
+                                    <div className='mt-2'><strong>Fuel Type :</strong>{productData.fuelType ? productData.fuelType : '-'} </div>
                                 </li>
                                 <li>
-                                    <div class='mt-2'><strong>Gross Weight :</strong>{productData.grossWeight ? productData.grossWeight : '-'} </div>
+                                    <div className='mt-2'><strong>Gross Weight :</strong>{productData.grossWeight ? productData.grossWeight : '-'} </div>
                                 </li>
 
                                 <li>
-                                    <div class='mt-2'><strong>Height :</strong> {productData.height ? productData.height : '-'}</div>
+                                    <div className='mt-2'><strong>Height :</strong> {productData.height ? productData.height : '-'}</div>
                                 </li>
                                 <li>
-                                    <div class='mt-2'><strong>Width  :</strong>{productData.width ? productData.width : '-'} </div>
+                                    <div className='mt-2'><strong>Width  :</strong>{productData.width ? productData.width : '-'} </div>
                                 </li>
                                 <li>
-                                    <div class='mt-2'><strong>Load Capacity  :</strong> {productData.loadCapacity ? productData.loadCapacity : '-'} </div>
+                                    <div className='mt-2'><strong>Load Capacity  :</strong> {productData.loadCapacity ? productData.loadCapacity : '-'} </div>
                                 </li>
                                 <li>
-                                    <div class='mt-2'><strong>Mileage :</strong>{productData.mileage ? productData.mileage : '-'} </div>
+                                    <div className='mt-2'><strong>Mileage :</strong>{productData.mileage ? productData.mileage : '-'} </div>
                                 </li>
                                 <li>
-                                    <div class='mt-2'><strong>Net Weight :</strong> {productData.netWeight ? productData.netWeight : '-'}</div>
+                                    <div className='mt-2'><strong>Net Weight :</strong> {productData.netWeight ? productData.netWeight : '-'}</div>
                                 </li>
 
                             </ul>
@@ -265,10 +279,10 @@ const ProductView = () => {
                                     <TabPanel value={value} index={0}>
                                         <div className='quesList'>
                                             {
-                                                questionList.length ? questionList.map((ques) =>
-                                                    <div className='mt-2 mb-2'>
-                                                        <p className='m-0'>   <strong>Qusetion</strong> : {ques.question} </p>
-                                                        <p className='m-0'>  <strong>Answer</strong> : {ques.answer}</p>
+                                                questionList.length ? questionList.map((ques , i) =>
+                                                    <div className='mt-2 mb-2' key={i}>
+                                                        <p className='m-0 font_class'>   <strong>Qusetion</strong> : {ques.question} </p>
+                                                        <p className='m-0 font_class'>  <strong>Answer</strong> : {ques.answer}</p>
 
                                                     </div>
                                                 ) :
@@ -276,9 +290,11 @@ const ProductView = () => {
                                             }
                                         </div>
                                         <div className='see_more_less'>
-                                            <span onClick={() => pageIcre()}>
-                                                see more
-                                            </span>
+                                            { questionList.length < quesCount && quesCount > totalCount ? 
+                                            <span onClick={() => pageIcre()} className='see_more'> see more <i className='fas fa-angle-down'></i> </span> 
+                                            : questionList.length >= quesCount && quesCount > totalCount ? <span onClick={() => pagedre()} className='see_more'> see less <i className='fas fa-angle-up'></i> </span> : null
+                                            }
+                                            {/* <span onClick={() => pageIcre()} className='see_more'> see less <i class='fas fa-angle-up'></i> </span> */}
                                         </div>
                                     </TabPanel>
                                 </Box>
