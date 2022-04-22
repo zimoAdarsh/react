@@ -1,5 +1,4 @@
-
-.error{
+.error {
   color: red;
 }
 ::-webkit-scrollbar {
@@ -18,5 +17,111 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb {
   background: rgb(99, 96, 96);
+}
+
+@media only screen and (max-width: 400px) {
+  .pro_serch_filter {
+    padding: 20px;
+    display: flex;
+  }
+  .product-list h6 {
+    margin-top: 10px;
+  }
+  .fav {
+    text-align: right;
+    justify-content: right;
+  }
+  /* styles for browsers less than 400px; */
+}
+
+@media only screen and (max-width: 1765px) {
+  .filter_list {
+    width: 350px !important;
+  }
+}
+
+@media only screen and (max-width: 1565px) {
+  .filter_list {
+    width: 300px !important;
+  }
+}
+@media only screen and (max-width: 970px) {
+  .res {
+    width: 100% !important;
+  }
+  .cate_row {
+    max-width: 80% !important;
+  }
+  .post_list {
+    width: 100% !important;
+  }
+
+  .login-form {
+    width: 100% !important;
+  }
+}
+
+@media only screen and (max-width: 1365px) {
+  .filter_list {
+    display: none;
+  }
+  .product-list {
+    width: 100%;
+  }
+  .filter_list_phone {
+    display: block !important;
+    z-index: 116;
+    background-color: #efebeb;
+    padding: 30px;
+    height: 90vh;
+    position: fixed;
+    top: 80px;
+    overflow: scroll;
+  }
+  .cus_ham_btn {
+    display: block !important;
+    z-index: 999;
+  }
+}
+.cus_ham_btn {
+  display: none;
+}
+.filter_list_phone {
+  display: none;
+}
+
+.d-none {
+  display: none;
+}
+
+.cmnt_row,
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
+.cus-profile-img {
+  width: 90px;
+  border-radius: 117px;
+  margin: -36px 0 30px 20px;
+  height: 90px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+  position: relative;
+  z-index: 1;
+  background: #fff;
+}
+.cus_btn {
+  border-radius: 15px;
+  padding: 8px 23px;
+  border: 1px solid #fff;
+  -webkit-filter: drop-shadow(-4.243px -4.243px 3px rgba(255, 255, 255, 0.5))
+    drop-shadow(4.243px 3.243px 3px rgba(171, 194, 212, 0.3));
+  filter: drop-shadow(-4.243px -4.243px 3px rgba(255, 255, 255, 0.5))
+    drop-shadow(4.243px 3.243px 3px rgba(171, 194, 212, 0.3));
+  background-color: #e7edf2;
+  border: none;
+  text-transform: capitalize;
+  cursor: pointer;
+  outline: 0;
 }
 

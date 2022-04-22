@@ -48,6 +48,7 @@ ul.cus_menu {
   width: 100px;
   border-radius: 5px;
   z-index: 9;
+  position: absolute;
 }
 
 .no_list {

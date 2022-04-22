@@ -5,7 +5,10 @@ import React, { useEffect, useState } from 'react'
 import apiService from '../../environment'
 import './post.css'
 import DialogBox from '../dialog'
-const Post = ({ data, comment, index, like, postComment, reCommentList }) => {
+import { toast } from "react-toastify";
+
+const Post = ({ data, comment, index, like, postComment, reCommentList, deletePost }) => {
+
     const [commentsState, setCommentState] = useState({
         commenting: ''
     })
@@ -19,23 +22,14 @@ const Post = ({ data, comment, index, like, postComment, reCommentList }) => {
             [name]: value
         })
     }
-
-    console.log( 'data==>>',data )
-
-    const commentor = (id) => {
-        console.log('id', id, commentsState.commenting)
-    }
     const toggleClass = () => {
         setClass(!classIn)
     }
 
-    const clicked = () => {
-        console.log('gggg')
-    }
 
     return (
         <div className='post'>
-            <div className='row post_header'>
+            <div className='row post_header' >
                 <div className='col-sm-3'>
                     <img className='avatar' src={apiService.imagePath + data.userData?.image}></img>
                 </div>
@@ -47,41 +41,52 @@ const Post = ({ data, comment, index, like, postComment, reCommentList }) => {
                     <i className="fa fa-ellipsis-v" onClick={() => toggleClass()}></i>
                     <div className={classIn ? 'list' : 'no_list'}>
                         <ul className='cus_menu'>
-                            <li><DialogBox function={clicked} content={content}></DialogBox> </li>
+                            <li onClick={() => { deletePost(index); toggleClass() }} > Delete </li>
+                            {/* {isOpen && <DialogBox functions={() => deletePost(data._id, index)} content={content} handelopen={setOpen} open={isOpen} ></DialogBox>} */}
                         </ul>
                     </div>
                 </div>
 
                 <div className='row'>
-                    <div className='col-sm-12 mt-5 mb-5'>
-                        <div>{data.caption}</div>
-                    </div>
-                </div>
-                <div className='row'>
-
-                    <div className='col-sm-4' onClick={() => like(data._id, !data.isLiked, index)}>
-                        <i style={{ fontSize: "24px", cursor: 'pointer' }} className={data.isLiked ? 'like_post fa fa-thumbs-up' : 'dislike_post fa fa-thumbs-up'}></i>
-                    </div>
-                    <div className='col-sm-4' onClick={() => comment(data._id, index, data.commentPage, 50)}>
-                        {data.totalCommentWithReComment}   <i className='fa icon_class'>&#xf075;</i>
+                    <div className='col-sm-12 mt-5 mb-5 post_data'>
+                        <p className='caption'>
+                            {data.caption}
+                        </p>
+                        <div className='post_media'>
+                            <img className="w-100" src={ apiService.postImagePath+data.media[0]?.name }></img>
+                        </div>
 
                     </div>
-                    <div className='col-sm-4'>
-                        <i className="fa fa-share-alt icon_class" ></i>
+                </div>
+                <div className='row '>
+                    <div className='actions'>
+                        <div className='col-sm-4' onClick={() => like(data._id, !data.isLiked, index)}>
+                            <i style={{ fontSize: "24px", cursor: 'pointer' }} className={data.isLiked ? 'like_post fa fa-thumbs-up' : 'dislike_post fa fa-thumbs-up'}></i>
+                        </div>
+                        <div className='col-sm-4' onClick={() => comment(data._id, index, data.commentPage, 50)}>
+                            {data.totalCommentWithReComment}   <i className='fa icon_class'>&#xf075;</i>
+
+                        </div>
+                        <div className='col-sm-4'>
+                            <i className="fa fa-share-alt icon_class" ></i>
+                        </div>
                     </div>
+
                 </div>
                 <div className='row'>
-                    <div className='col-sm-11 mt-3'>
-                        <input type='text' placeholder='type here' className='cmnt_inpt' value={commentsState.commenting} name='commenting' onChange={(e) => handleState(e.target.name, e.target.value)}></input>
-                    </div>
-                    <div className='col-sm-1 mt-4' onClick={() => postComment(data._id, commentsState.commenting, index)}>
-                        <i className="fa fa-send-o icon_class"></i>
+                    <div className='cmnt_row'>
+                        <div className='col-sm-11 mt-3'>
+                            <input type='text' placeholder='type here' className='cmnt_inpt' value={commentsState.commenting} name='commenting' onChange={(e) => handleState(e.target.name, e.target.value)}></input>
+                        </div>
+                        <div className='col-sm-1 mt-4' onClick={() => postComment(data._id, commentsState.commenting, index)}>
+                            <i className="fa fa-send-o icon_class"></i>
+                        </div>
                     </div>
                 </div>
                 {
                     <div className='commentList mt-4'>
                         {data.comments.map((comment, i) =>
-                            <div className='row p-1 comments  mt-4 mb-4'>
+                            <div className='row p-1 comments  mt-4 mb-4' key={i}>
                                 <div className='col-sm-2'>
                                     <img className='cmnt_img' src={apiService.imagePath + comment.image}></img>
                                 </div>
@@ -90,16 +95,16 @@ const Post = ({ data, comment, index, like, postComment, reCommentList }) => {
                                 </div>
                                 <div className='comnt_re'>
                                     <span onClick={() => setPostInput(i)} > reply </span>
-                                    <span onClick={() => reCommentList( index , i , comment._id  , data._id , comment.page)}  > view {comment.totalReComment } </span>
-                                    {postInput == i ? <div className='reply_input'>
+                                    <span onClick={() => reCommentList(index, i, comment._id, data._id, comment.page)}  > view {comment.totalReComment} </span>
+                                    {postInput == i && <div className='reply_input'>
                                         <input type='text'></input>
-                                    </div> : null}
+                                    </div>}
                                 </div>
                                 <div className='re_list'>
                                     {
-                                        comment.reCommentArr.map((recmnt)=>
-                                            <div>
-                                                { recmnt.comment }
+                                        comment.reCommentArr.map((recmnt , j) =>
+                                            <div key={j}>
+                                                {recmnt.comment}
                                             </div>
                                         )
                                     }

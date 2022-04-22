@@ -1,13 +1,12 @@
 .cate_row {
-    box-shadow: 0 0 13px #97a7c37a, 0 2px 13px 0 #97a7c3ab;
+    box-shadow: 0 0 5px #97a7c37a, 0 2px 5px 0 #97a7c3ab;
     margin: 13px 56px;
     border-radius: 10px;
-    height: 236px;
 }
 
 .cate_img {
     width: 100%;
-    box-shadow: 0 0 13px #97a7c37a, 0 2px 13px 0 #97a7c3ab;
+    box-shadow: 0 0 5px #97a7c37a, 0 2px 5px 0 #97a7c3ab;
     border-radius: 10px;
     cursor: pointer;
 }

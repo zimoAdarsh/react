@@ -9,18 +9,19 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import * as moment from "moment"
 import "./Test.css"
+import { date } from 'yup';
 const Test = () => {
     const [value, setValue] = useState(new Date());
     const [dates, setDates] = useState([])
 
     let week = [
-        { day: 'sun', num: 0 },
-        { day: 'mon', num: 1 },
-        { day: 'tue', num: 2 },
-        { day: 'wed', num: 3 },
-        { day: 'thu', num: 4 },
-        { day: 'fri', num: 5 },
-        { day: 'sat', num: 6 }
+        { day: 'sun', num: 0, data: [] },
+        { day: 'mon', num: 1, data: [] },
+        { day: 'tue', num: 2, data: [] },
+        { day: 'wed', num: 3, data: [] },
+        { day: 'thu', num: 4, data: [] },
+        { day: 'fri', num: 5, data: [] },
+        { day: 'sat', num: 6, data: [] }
     ]
 
     useEffect(() => {
@@ -28,21 +29,34 @@ const Test = () => {
     }, [value])
 
     const funcsion = () => {
-
+        let datesArr = []
         let start = moment(value).startOf('month')
         let end = moment(value).endOf('month').utc()
 
-        var currentDate = moment(start);
-        var stopDate = moment(end);
-        while (currentDate <= stopDate) {
-            dates.push({ date: moment(currentDate).format('YYYY-MM-DD'), count: new Date(currentDate).getDay() })
-            currentDate = moment(currentDate).add(1, 'days');
+
+        while (start <= end) {
+            datesArr.push({ date: moment(start).format('YYYY-MM-DD'), count: new Date(start).getDay() })
+            start = moment(start).add(1, 'days');
         }
-        setDates([...dates])
 
-        console.log(dates)
+        for (let i = 0; i < week.length; i++) {
+            for (let j = 0; j < datesArr.length; j++) {
+                if (week[i].num === datesArr[j].count) {
+                    week[i].data.push(`<p> ${datesArr[j].date} </p>`)
+
+                } else {
+                    week[i].data.push("<div></div>")
+                }
+
+            }
+        }
 
 
+
+
+
+        setDates([...week])
+        console.log('datesArr==>', dates)
 
     }
 
@@ -55,7 +69,7 @@ const Test = () => {
         <>
             <div className='time mt-5'>
                 <div className='container'>
-                    <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DesktopDatePicker
                             label="Date desktop"
                             inputFormat="MM/dd/yyyy"
@@ -63,20 +77,22 @@ const Test = () => {
                             onChange={handleChange}
                             renderInput={(params) => <TextField {...params} />}
                         />
-                    </LocalizationProvider>
+                    </LocalizationProvider> */}
 
-                    <div className='cal m-4'>
+                    <div className='cal m-4 cal'>
                         {
-                            week.map((day) =>
-                                <div className='cal_inner'>
-                                    <p className=''> {day.day} </p>
+
+                            dates.map((date) =>
+                                <div>
+                                    {/* <p className=''> {date.day} </p> */}
                                     {
-                                        dates.map((date) =>
-                                        date.count === day.num? <p> {date.date}</p> : null)
+                                        date.data.map((res) =>
+                                            <p dangerouslySetInnerHTML={{ __html:  res  }}>  </p>
+                                        )
                                     }
                                 </div>
-
                             )
+
                         }
                     </div>
 

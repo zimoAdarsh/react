@@ -1,0 +1,18 @@
+.view_job {
+  margin-top: 20px;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0px 2px #d1d7e27a, 0 2px 3px 0 #97a7c3ab;
+}
+.job_head {
+  font-weight: 600;
+  font-size: 18px;
+}
+.head_btn {
+    display: flex;
+    justify-content: space-evenly;
+}
+.head_row {
+    border-bottom: 1px solid lightgray;
+    padding: 10px 5px;
+}

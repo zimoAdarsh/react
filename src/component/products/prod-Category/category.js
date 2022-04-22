@@ -23,7 +23,7 @@ const ProductCategory = () => {
             return
         } 
         else{
-            navigate('/category/products/'+cat._id)
+            navigate('/products/'+cat._id)
         }
     }
     return (
@@ -37,7 +37,7 @@ const ProductCategory = () => {
                     </div>
                     <div className='row'>
                         {CategoryList.map((cate) => (
-                            <div className='cate_row col-sm-2' key={cate._id} >
+                            <div className='cate_row col-sm-2 col-xs-6' key={cate._id} >
                                 <div className="cus_img mt-3" onClick={()=> handlePath(cate) }>
                                         <img className='cate_img' src={`${apiService.cateImgPath}${cate.image}`}></img>
                                 </div>

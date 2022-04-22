@@ -6,43 +6,24 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 
 
-const DialogBox = (props) => {
-    console.log('props', props)
-    const [open, setOpen] = useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-
-        setOpen(false);
-    };
-
-    const closeed = () => {
-        props.function()
-        setOpen(false);
-
-    }
+const DialogBox = ({ open , handelopen , content , functions }) => {
+    console.log( 'dialogProps===>>', open   )
     return (
         <div>
-            <p className='m-0' onClick={handleClickOpen}>
-                DELETE
-            </p>
             <Dialog
                 open={open}
-                onClose={handleClose}
+                // onClose={handleClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        {props.content}
+                        {content}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} >No</Button>
-                    <Button onClick={closeed}>
+                    <Button onClick={ handelopen } >No</Button>
+                    <Button onClick={ functions }>
                         Yes
                     </Button>
                 </DialogActions>

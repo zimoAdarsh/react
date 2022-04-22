@@ -51,9 +51,12 @@ const ProductView = () => {
     let productId = useParams()
 
     useEffect(() => {
-        ProductDetail()
         questionsList(quesPage)
-    }, [])
+    }, [quesPage])
+
+    useEffect(()=>{
+        ProductDetail()
+    },[])
 
     const ProductDetail = () => {
         let data = {
@@ -127,13 +130,13 @@ const ProductView = () => {
 
     const pageIcre = () => {
         setQuesPage( ()=>  quesPage+1 )
-        questionsList(quesPage)
+        window.scroll(0,650)
 
     }
     const pagedre = () =>{
-        let data = questionList.splice(0 ,5)
+        // let data = questionList.splice(0 ,5)
 
-        setQuestionList([...data])
+        setQuestionList([])
         setQuesPage(1)
 
     }
@@ -157,7 +160,6 @@ const ProductView = () => {
                 if (res.data.code === 200) {
                     formik.resetForm()
                 }
-                console.log('res==>>', res)
             })
         }
     })
@@ -248,7 +250,7 @@ const ProductView = () => {
                                 </li>
                                 <li>
                                     <div className='mt-2'><strong>Mileage :</strong>{productData.mileage ? productData.mileage : '-'} </div>
-                                </li>
+                                </li>  
                                 <li>
                                     <div className='mt-2'><strong>Net Weight :</strong> {productData.netWeight ? productData.netWeight : '-'}</div>
                                 </li>

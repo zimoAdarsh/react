@@ -7,20 +7,22 @@ import apiService from '../../environment'
 import { toast } from "react-toastify";
 function Home() {
     const [postsData, setPostsData] = useState([])
-    const [ stop , setStop ] = useState(true)
-    useEffect(() => {
-        const getPostList = async () => { 
-            let data = {
-                count: 10,
-                page: 1,
-                userId: "6253f8b195425f41cda44fd4"
-            }
-            const postList = await axios.post(apiService.posts, data)
-            setPostsData(postList.data.data)
-        }
+    const [stop, setStop] = useState(true)
+    const [open, setOpen] = useState(false);
 
+    useEffect(() => {
         getPostList()
     }, [])
+
+    const getPostList = async () => {
+        let data = {
+            count: 10,
+            page: 1,
+            userId: "624fcfb1bc86d15538faf61a"
+        }
+        const postList = await axios.post(apiService.posts, data)
+        setPostsData(postList.data.data)
+    }
 
     const commentList = async (Id, index, page, count) => {
         if (postsData[index].totalComment > postsData[index].comments.length && stop) {
@@ -31,11 +33,11 @@ function Home() {
                 postsData[index].comments.push(...comments.data.data)
                 setPostsData([...postsData])
                 setStop(true)
-            }else{
+            } else {
                 toast.error('error')
                 setStop(true)
             }
-           
+
 
         }
     }
@@ -54,6 +56,7 @@ function Home() {
             userImage: "a802b7c4-0dbf-4a48-b7b2-8f0ace6b50d6-1649675168171_caucasian-trucker-driver-in-front-of-his-retro-sem-2021-08-29-11-42-50-utc.jpeg",
             userName: "Global Solutions",
         }
+        if (!cmnt) return
         const addComment = await axios.post(apiService.addCommnet, data)
         if (addComment['data'].code === 200) {
             let push = {
@@ -68,7 +71,7 @@ function Home() {
                 totalReComment: 0
             }
             postsData[index].totalCommentWithReComment++
-            postsData[index].comments.push(push)
+            postsData[index].comments.unshift(push)
             setPostsData([...postsData])
             cmnt = null
         }
@@ -91,6 +94,28 @@ function Home() {
             setPostsData([...postsData])
         })
     }
+    const handleClopen = () => {
+        setOpen(!open);
+        console.log('open==>>')
+    }
+
+
+    const clicked = (i) => {
+        console.log('post=>>' ,i)
+        postsData.splice(i, 1)
+        setPostsData([...postsData])
+        setOpen(false)
+        // axios.post(apiService.deletePost, { postId: post, userId: "" }).then((res) => {
+
+
+        // if (res.data.code === 200) {
+
+        // } else {
+        //     toast.error(res.data.message)
+        // }
+
+        // })
+    }
 
 
 
@@ -107,7 +132,11 @@ function Home() {
                         index={index}
                         like={likePost}
                         postComment={addComment}
-                        reCommentList={commentReplyList} />)
+                        reCommentList={commentReplyList}
+                        deletePost={clicked}
+                        setOpen={handleClopen}
+                        isOpen={open}
+                    />)
 
                     }
 

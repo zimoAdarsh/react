@@ -23,9 +23,18 @@ const apiService = {
     productDetail : baseUrl+'/product/details',
     addQuestion : baseUrl+'/review/addQuestions',
     questionList : baseUrl+'/review/questionAnswerlist',
-    reCommentList :  "https://mytruck.one:1337/api/mobile/comment/list"
-
+    reCommentList :  "https://mytruck.one:1337/api/mobile/comment/list",
+    deletePost : "https://mytruck.one:1337/api/mobile/post/delete",
+    postImagePath: 'https://mytruck.one:1337/uploads/post/image/',
+    eductionsList : baseUrl+"/qualification/list",
+    industryList : baseUrl+"/industry/list",
+    jobList : baseUrl+"/job/list",
+    companyImage : "https://mytruck.one:1337/uploads/enduser/",
+    jobDetail : baseUrl+"/job/details",
+    saveJob : baseUrl+"/savedjob/add"
     
 }
+
+
 
 export default apiService
