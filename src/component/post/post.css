@@ -4,8 +4,8 @@
   border-radius: 50%;
 }
 
-.post_header {
-  padding: 10px;
+.post {
+  /* padding: 10px; */
   border: 1px solid rgb(209, 207, 207);
   margin: 10px;
   border-radius: 10px;
@@ -15,7 +15,7 @@
   font-size: 10px;
 }
 .cmnt_inpt {
-  width: 100%;
+  width: 90%;
   border-radius: 10px;
   outline: none;
   border: 1px solid lightgray;
@@ -70,4 +70,15 @@ ul.cus_menu {
 }
 .reply_input{
     position: absolute;
+}
+.cap_hide {
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+}
+
+.cap_show{
+  
 }

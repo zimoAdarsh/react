@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Navbar from "../shared/navbar/navbar";
 import './Product.css'
 import apiService from '../../environment'
@@ -22,7 +22,7 @@ import ListItemText from '@mui/material/ListItemText';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import { UserContext } from "../../Context";
 
 const Product = () => {
     const [currYear, setCurrYear] = useState(new Date().getFullYear())
@@ -41,6 +41,10 @@ const Product = () => {
     const [productList, setProductList] = useState([])
     const [dis, setDis] = useState(false)
     const [open, setOpen] = useState(false)
+    let user = useContext(UserContext)
+
+    console.log('user==>', user)
+
     const handlePrice = (event, newValue) => {
         console.log(newValue)
         setPriceValue(newValue);
@@ -54,10 +58,15 @@ const Product = () => {
     useEffect(() => {
         brandLists()
         subCategoryList(id)
+        createCanvas()
     }, [])
 
     useEffect(() => {
-        getProductList(id)
+        
+
+        debounce( getProductList(id), 2000)
+
+
     }, [priceValue, yearValue, search, brand, condition, subCategory])
 
     const handleChange = (event) => {
@@ -97,8 +106,21 @@ const Product = () => {
             SetBrandList(res.data.data)
         })
     }
+
+
+    function debounce(f, interval) {
+        let timer = null;
+      console.log('f, interval',f, interval)
+        return (...args) => {
+          clearTimeout(timer);
+          return new Promise((resolve) => {
+            timer = setTimeout( () => resolve(f(...args)), interval,)
+          });
+        };
+      }
+
     const getProductList = (id) => {
-      
+        console.log('called===>')
         let data = {
             isActive: "true",
             isDeleted: "false",
@@ -113,13 +135,13 @@ const Product = () => {
             brandId: brand,
             subCategory: subCategory,
             searchText: search,
-            userId: "6253f8b195425f41cda44fd4"
+            userId: user.user?._id
 
         }
         axios.post(apiService.productList, data).then((res) => {
             setProductList(res.data.data)
             console.log('res', productList)
-            setOpen( false   )
+            // setOpen( false   )
         })
     }
 
@@ -196,6 +218,10 @@ const Product = () => {
             },
         },
     };
+    const createCanvas = () => {
+        let can = document.createElement('canvas')
+        console.log()
+    }
 
     return (
         <div className='products'>
@@ -208,7 +234,7 @@ const Product = () => {
 
                     </span>
                 </div>
-                <div className={open ? "col-sm-3 filter_list_phone" : 'd-none'} >
+                <div className={open ? "filter_list_phone" : 'd-none'} >
 
                     <div className='inner_filter mt-3 p-2'>
                         <div className='mt-2 mb-2 cus_filt'>
@@ -244,7 +270,7 @@ const Product = () => {
                                         id="demo-simple-select"
                                         value={subCategory}
                                         label="Select sub-category"
-                                        onChange={handleChange}
+                                        // onChange={ ()=>   setCategory(  ) }
                                     >
                                         {SubCategoryList.map((subCate) => (
                                             <MenuItem value={subCate._id} key={subCate._id}>{subCate.category_name} </MenuItem>
@@ -280,7 +306,7 @@ const Product = () => {
                                     id="demo-multiple-checkbox"
                                     multiple
                                     value={brand}
-                                    onChange={handleBrandChange}
+                                    // onChange={handleBrandChange}
                                     input={<OutlinedInput label="Tag" />}
                                     renderValue={(selected) => selected.join(', ')}
                                     MenuProps={MenuProps}
@@ -331,10 +357,10 @@ const Product = () => {
                                     <Typography component={'div'}>
                                         <div className='row'>
                                             <div className='col-sm-6'>
-                                                <input readOnly className='form-control' value={priceValue[0]} ></input>
+                                                <input className='form-control' value={priceValue[0]} ></input>
                                             </div>
                                             <div className='col-sm-6'>
-                                                <input readOnly className='form-control' value={priceValue[1]}></input>
+                                                <input className='form-control' value={priceValue[1]}></input>
                                             </div>
                                             <Box sx={{ width: 300 }}>
                                                 <Slider
@@ -602,7 +628,11 @@ const Product = () => {
                                 </div>
                             </div>
 
-                        ) : <p className='text-center'> NO record found </p>}
+                        ) : <p className='text-center'> No record found </p>}
+
+                        <div id='canvas'>
+
+                        </div>
                     </div>
 
                 </div>

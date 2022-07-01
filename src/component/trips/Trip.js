@@ -16,11 +16,12 @@ const Trip = () => {
 
     const Tripsdata =  (page) => {
 
-         axios.post(apiService.tripData, { createdById: "61cb0b44f34ca5e1e447fe9b", runningStatus: "UPCOMING", count: Constant.itemsPerPage, page: page }).then((res) => {
+         axios.post(apiService.tripData, { createdById: "624fcb27bc86d15538faf573",driverId: "624fcfb1bc86d15538faf61a", runningStatus: "ALL", count: Constant.itemsPerPage, page: page }).then((res) => {
             if (res.data.code === 200) {
                 setTripData(res.data)
 
             }
+            
         })
     }
 
@@ -73,7 +74,7 @@ const Trip = () => {
                     )}
                     <div className='row'>
                         <div className='col-sm-12 text-center cus_pagi'>
-                        <PaginatioN count={tripData?.totalCount} page ={page}  setPage={ setPage }></PaginatioN>
+                       {<PaginatioN count={tripData?.totalCount} page ={page}  setPage={ setPage }></PaginatioN>}
                         </div>
                     </div>
                 </div>

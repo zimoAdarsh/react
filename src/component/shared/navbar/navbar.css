@@ -1,37 +1,46 @@
-
-.main-nav{
-  color: white;
-  background-color: rgb(189 188 188);
+.main-nav {
+  color: black;
+  background-color: rgb(255 255 255);
   width: 100%;
   display: flex;
   position: sticky;
   top: 0;
   height: 80px;
-  z-index: 9999;
-  }
-  /* .links{
+  border-bottom: 1px solid lightgray;
+  box-shadow: 0 0px 2px #97a7c37a, 0 -2px 7px 0 #97a7c3ab;
+    z-index: 9999;
+}
+/* .links{
   
     cursor: pointer;
   } */
-  
-  .head{
-    color: white;
-  }
 
-  .links ul {
-      list-style: none;
-      display: flex;
-      justify-content: space-evenly;
+.head {
+  color: white;
+}
 
-  }
-  .links ul li{
-      cursor: pointer;
-      
-  } 
+.links ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+}
+.links ul li {
+  cursor: pointer;
+}
 
-  .links a,
-  .head
-   a {
-    color: #ffffff;
-    text-decoration: none;
+.links a,
+.head a {
+  color: #000000;
+  text-decoration: none;
+}
+.links a::after {
+  content: "";
+  height: 1px;
+  background: rgb(121, 118, 118);
+  display: block;
+  width: 0;
+}
+.links a:hover::after{
+  width: 100%;
+  transition: .6s ease;
 }

@@ -29,19 +29,34 @@ const ViewJob = () => {
     console.log('==>', jobData)
 
     const saveUserJob = () => {
-        let data ={
-            jobId: jobData._id ,
-            userId : "624fcfb1bc86d15538faf61a",
-            companyId : jobData.createdById
+        let data = {
+            jobId: jobData._id,
+            userId: "624fcfb1bc86d15538faf61a",
+            companyId: jobData.createdById
 
         }
-        axios.post(apiService.saveJob , data).then((res)=>{
-            if(res['data'].code===200){
-                jobData.isSaved = true
-                setData({...jobData})
-            }
-            
-        })
+
+        if (jobData.isSaved) {
+            axios.post(apiService.removeSaveJob, data).then((res) => {
+                if (res['data'].code === 200) {
+                    jobData.isSaved = false
+                    setData({ ...jobData })
+                } else {
+                    toast.error(res['data'].message)
+                }
+            })
+        }else{
+            axios.post(apiService.saveJob, data).then((res) => {
+                if (res['data'].code === 200) {
+                    jobData.isSaved = true
+                    setData({ ...jobData })
+                } else {
+                    toast.error(res['data'].message)
+                }
+    
+            })
+        }
+
     }
 
     return (
@@ -54,7 +69,7 @@ const ViewJob = () => {
                         </div>
                         <div className='col-sm-6 head_btn'>
                             <button className='cus_btn' onClick={() => window.history.back()} >Back</button>
-                            <button disabled={ jobData.isSaved } className='cus_btn' onClick={() => saveUserJob()}> {jobData.isSaved ? "Saved" : "Save Job"} </button>
+                            <button className='cus_btn' onClick={() => saveUserJob()}> {jobData.isSaved ? "Unsave" : "Save"} </button>
                             <button className='cus_btn'>{jobData.alreadyApplied ? "Applied" : "Apply"}</button>
                         </div>
                     </div>

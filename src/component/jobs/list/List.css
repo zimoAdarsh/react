@@ -34,8 +34,17 @@
   text-overflow: ellipsis;
 }
 
-.jobs p{
-  font-size: 15px;
-  color: #8b8a8a;
-  font-weight: 500;
+
+.cus-profile-img {
+  width: 90px;
+  border-radius: 117px;
+  margin: -36px 0 30px 20px;
+  height: 90px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+  position: absolute;
+  z-index: 1;
+  background: #fff;
+  top: 41px;
+  right: 101px;
 }

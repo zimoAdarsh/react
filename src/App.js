@@ -18,6 +18,10 @@ import Test from './component/test_folder/test';
 import JobAdd from './component/jobs/add/add'
 import JobList from './component/jobs/list/list';
 import ViewJob from './component/jobs/view/view';
+import NotFound from './component/not-found/Not-found';
+import Map from './component/Map/Map'
+import Layout from './component/layout/layout';
+import AddProduct from './component/e-commerce/AddProduct';
 
 
 
@@ -30,7 +34,7 @@ function App() {
   },[])
   return (
     <div className="App">
-      {/* <UserContext.Provider value={{user}}> */}
+      <UserContext.Provider value={{user}}>
         <Routes>
           <Route path='/' element={<Login />}></Route>
           <Route path='/home' element={<Home />}></Route>
@@ -46,8 +50,12 @@ function App() {
           <Route path='/job/add' element={ <JobAdd/> }> </Route>
           <Route path='/jobs' element={ <JobList/> }> </Route>
           <Route path='/jobs/view/:id' element={ <ViewJob/> }> </Route>
+        <Route  path='/map' element={ <Map/> }></Route>
+          <Route path ="" element ={ <Layout/> } > </Route>
+          <Route path='*' element={ <NotFound/> }> </Route>
+          <Route path ="/e-commerce" element={ <AddProduct/> } ></Route>
         </Routes>
-      {/* </UserContext.Provider> */}
+      </UserContext.Provider>
 
 
 

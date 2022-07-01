@@ -31,7 +31,8 @@ const apiService = {
     jobList : baseUrl+"/job/list",
     companyImage : "https://mytruck.one:1337/uploads/enduser/",
     jobDetail : baseUrl+"/job/details",
-    saveJob : baseUrl+"/savedjob/add"
+    saveJob : baseUrl+"/savedjob/add",
+    removeSaveJob : baseUrl+"/savedjob/remove"
     
 }
 

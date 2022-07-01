@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from '../shared/navbar/navbar';
 import './Signup.css'
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 function Signup() {
+    const [ show , setShow ] = useState({
+        password : false,
+        confirmPassword : false
+    })
     const validate = (values)=>{
         const errors = {}
         if(values.password){
@@ -79,17 +83,21 @@ function Signup() {
                         <div className='form-group '>
                             <label>Phone</label>
                             <input type='text' name='phone' id='name' className='form-control' onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.phone}></input>
+
                             {formik.touched.phone && formik.errors.phone ? <div className='error_class'> {formik.errors.phone} </div> : ''}
                         </div>
-                        <div className='form-group '>
+                        <div className='form-group password'>
                             <label>Password</label>
-                            <input type='password' name='password' id='name' className='form-control' onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.password}></input>
+                            <input type={ show.password ? "text"  :'password'} name='password' id='name' className='form-control' onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.password}></input>
+                            <i className={ !show.password ? "cus-pos fa fa-eye" : "cus-pos fa fa-eye-slash"} onClick={ ()=>{ setShow( { password : !show.password }) } }  ></i>
+
                             {formik.touched.password && formik.errors.password ? <div className='error_class'> {formik.errors.password} </div> : ''}
 
                         </div>
-                        <div className='form-group '>
+                        <div className='form-group password'>
                             <label>Confirm Password</label>
-                            <input type='password' name='confirmPassword' id='confirmPassword' className='form-control' onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.confirmPassword}></input>
+                            <input type={show.confirmPassword ? "text" : 'password'} name='confirmPassword' id='confirmPassword' className='form-control' onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.confirmPassword}></input>
+                            <i className={ !show.confirmPassword ? "cus-pos fa fa-eye" : "cus-pos fa fa-eye-slash"} onClick={ ()=>{ setShow ({ confirmPassword :! show.confirmPassword   }) } }  ></i>
                             {formik.touched.confirmPassword && formik.errors.confirmPassword ? <div className='error_class'> {formik.errors.confirmPassword} </div> : ''}
 
                         </div>

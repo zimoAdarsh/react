@@ -62,3 +62,13 @@
     top: 0px;
   }
 }
+
+.password{
+    position: relative;
+}
+
+.cus-pos {
+  position: absolute;
+  top: 35px;
+  right: 10px;
+}
