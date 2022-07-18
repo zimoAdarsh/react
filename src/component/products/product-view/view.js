@@ -10,6 +10,7 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { toast } from "react-toastify";
+import { Link } from 'react-router-dom'
 
 
 function TabPanel(props) {
@@ -204,6 +205,10 @@ const ProductView = () => {
                             <div className='contact_btn'>
                                 <button className='btn_cus_contact'>
                                     Contact seller
+                                </button>
+                                &nbsp;
+                                <button className='btn_cus_contact'>
+                                   <Link to={'/e-commerce/'+productData._id}>  Edit </Link>
                                 </button>
                             </div>
                         </div>

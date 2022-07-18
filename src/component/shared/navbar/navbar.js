@@ -5,13 +5,14 @@ import { UserContext } from "../../../Context";
 import { useNavigate } from "react-router";
 
 function Navbar() {
-    const local = useContext(UserContext)
+    const { user , setUser} = useContext(UserContext)
     let navigator = useNavigate()
-    console.log('navbar called here==>',local)
 
-    const logout=()=>{
+    const logout = () => {
+        
         localStorage.clear()
-        navigator('')
+        setUser({})
+        navigator('/login')
     }
 
 
@@ -30,18 +31,24 @@ function Navbar() {
 
                     </div>
                     <div className='links col-sm-7 mt-2'>
-                        <ul>
-                            {!Object.keys(local.user).length ? <><li> <Link to="/signup">Signup</Link>  </li>
-                                <li> <Link to="/">Login</Link>  </li> </>
+                        <ul className="links">
+                            {!Object.keys(user).length ? <><li> <Link to="/signup">Signup</Link>  </li>
+                                <li> <Link to="/login">Login</Link>  </li> </>
                                 :
                                 <>
-                                    <li> <Link to="/home">Home</Link> </li>
-                                    <li> <Link to="/event">Event</Link> </li>
-                                    <li> <Link to="/trip">Trips</Link> </li>
+                                    <li> <Link to="/" className="openMenu">Home</Link>
+                                        <ul className="submenu">
+                                            <li> <Link to="/event">Event</Link> </li>
+                                            <li> <Link to="/trip">Trips</Link> </li>
+                                        </ul>
+
+                                    </li>
+
                                     <li> <Link to="/category">Products</Link> </li>
+                                    <li> <Link to="/jobs">Jobs</Link> </li>
                                     <li> <Link to="/map">Map</Link> </li>
-                                    <li> <Link to="/e-commerce">E-commerce </Link>  </li>
-                                    <li onClick={()=> logout() } > Logout ({local.user.personName}) </li>
+                                    {/* <li> <Link to="/e-commerce">E-commerce </Link>  </li> */}
+                                    <li onClick={() => logout()} > Logout ({user.personName}) </li>
                                 </>
                             }
 

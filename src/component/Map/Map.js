@@ -26,7 +26,7 @@ export default () => (
 
             googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y2S4-iE2rHkYdyAsglz_qirv0UtpF1s&v=3.exp&libraries=geometry,drawing,places"
             loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: `800px`, width: '1600px' }} />}
+            containerElement={<div style={{ height: `90vh`, width: '100%' , position :"absolute" , "top" : "40px" }} />}
             mapElement={<div style={{ height: `100%` }} />}
         // <Marker></Marker>
 

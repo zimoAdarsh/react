@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
 import Navbar from "../shared/navbar/navbar";
 import './Login.css'
 import { useFormik } from "formik";
@@ -7,11 +7,14 @@ import apiService from "../../environment";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
+import { UserContext } from "../../Context";
 
 function Login() {
     const router = useNavigate()
     const [btn, setBtn] = useState(false)
     const [ show ,setShow ] = useState(false)
+
+    const { setUser } = useContext( UserContext )
 
     let emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     const formik = useFormik({
@@ -41,9 +44,10 @@ function Login() {
             if (loginData.data.code === 200) {
                 // localStorage.setItem('token',loginData.data.data.token)
                 localStorage.setItem('userInfo', JSON.stringify(loginData.data.data.userInfo))
+                setUser({ ...loginData.data.data.userInfo })
                 setBtn(false)
                 toast.success(loginData.data.message)
-                router('/home')
+                router('/')
             } else {
                 setBtn(false)
                 toast.warning(loginData.data.message)

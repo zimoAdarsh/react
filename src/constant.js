@@ -32,6 +32,7 @@ const Constant = {
                 currency: "",
                 price: "",
                 description: "",
+                listingType : ""
             },
             other: {
                 color: "",
@@ -56,7 +57,7 @@ const Constant = {
             vehicle: Yup.object({
                 brandId: Yup.string().required("brandId is required"),
                 modelId: Yup.string().required("modelId is required"),
-                productionYear: Yup.number().required("prouduction year is required"),
+                productionYear: Yup.number().required("prouduction year is required").nullable(true),
                 engineBrand: Yup.string().required("engine brand is required"),
                 fuelType: Yup.string().required("fuel type is required"),
                 breaks: Yup.string().required("brakes is required"),
@@ -68,12 +69,14 @@ const Constant = {
                 subCategoryId: Yup.string().required("subcategory is required"),
                 productType: Yup.string().required("product type is required"),
                 condition: Yup.string().required("condition is required"),
-                noOfMiles: Yup.string().required("number of miles is required"),
+                noOfMiles: Yup.number().required("number of miles is required").nullable(true),
                 engineHours: Yup.string().required("engine hours are required"),
                 location: Yup.string().required("location is required"),
                 currency: Yup.string().required("currency is required"),
                 price: Yup.string().required("price is required"),
                 description: Yup.string().required("description is required"),
+                listingType : Yup.string().required("listing type is required")
+
             }),
             other: Yup.object({
                 color: Yup.string().required("color is required"),

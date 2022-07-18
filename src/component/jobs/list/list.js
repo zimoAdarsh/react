@@ -10,6 +10,9 @@ import { toast } from 'react-toastify';
 import { Link } from "react-router-dom";
 import PaginatioN from '../../pagination';
 import { set } from 'date-fns';
+import Navbar from '../../shared/navbar/navbar';
+import loadash from 'lodash'
+// const load = require('lodash')
 const JobList = () => {
 
     const [getPlaces, setPlaces] = useState('')
@@ -46,6 +49,11 @@ const JobList = () => {
     }
 
     const jobList = () => {
+        let myArr = [ 1 ,2 ,3 , null , undefined ,4 ,5 ,6 , ""]
+        
+        let myArr1 = [ 'a' , 'b' , 'c' ]
+
+        console.log( "loadash=====" , loadash.concat( myArr , myArr1) )
 
         let data = {
             ...formik.values,
@@ -54,7 +62,7 @@ const JobList = () => {
         }
         axios.post(apiService.jobList, data).then((res) => {
             if (res['data'].code === 200) {
-                console.log(res['data'].data)
+                
                 setJobs(res['data'].data)
                 setTotalCount(res['data'].totalCount)
             } else {
@@ -105,6 +113,7 @@ const JobList = () => {
 
     return (
         <>
+        <Navbar></Navbar>
             <div className='job_post'>
                 <div className='container'>
                     <div className='srch_header'>
@@ -162,7 +171,7 @@ const JobList = () => {
                         </div>
                         <div className='col-sm-8 '>
                             {getJobs.map((job) =>
-                                <div className='jobs mt-2 mb-2'>
+                                <div className='jobs mb-2'>
                                     <div className='row'>
                                         <div className='col-sm-6'>
 
