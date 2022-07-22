@@ -22,7 +22,7 @@ import NotFound from './component/not-found/Not-found';
 import Map from './component/Map/Map'
 import Layout from './component/layout/layout';
 import AddProduct from './component/e-commerce/AddProduct';
-
+import Style from './component/styled_com/Style'
 
 
 function App() {
@@ -51,6 +51,7 @@ function App() {
           <Route path="" element={<Layout />} > </Route>
           <Route path='*' element={<NotFound />}> </Route>
           <Route path="/e-commerce/:id" element={<AddProduct />} ></Route>
+          <Route path="/style" element={<Style />} ></Route>
         </Routes>
       </UserContext.Provider>
 

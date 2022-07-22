@@ -29,7 +29,7 @@ const apiService = {
     productImage : 'https://mytruck.one:1337/uploads/product/image/thumbnail_245X245/',
     addWistList : baseUrl+'/api/v1/wishlist/addWishlist',
     removeWishList : baseUrl+'/api/v1/wishlist/removeWishlist',
-    productDetail : baseUrl+'/api/v1/product/details',
+    // productDetail : baseUrl+'/api/v1/product/details',
     addQuestion : baseUrl+'/api/v1/review/addQuestions',
     questionList : baseUrl+'/api/v1/review/questionAnswerlist',
     reCommentList :  "https://mytruck.one:1337/api/mobile/comment/list",

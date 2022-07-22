@@ -23,6 +23,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UserContext } from "../../Context";
+import loadash from 'lodash'
 
 const Product = () => {
     const [currYear, setCurrYear] = useState(new Date().getFullYear())
@@ -63,9 +64,10 @@ const Product = () => {
 
     useEffect(() => {
         
-
+        // let debouncer = loadash.debounce( () => getProductList(id), 1000 )
         debounce( getProductList(id), 2000)
 
+        // debouncer()
 
     }, [priceValue, yearValue, search, brand, condition, subCategory])
 
